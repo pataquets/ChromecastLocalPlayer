@@ -6,14 +6,12 @@ import bottle
 
 import os, mimetypes, socket
 
-HOST = "0.0.0.0" # "localhost" # 
-PORT = 8080 # random.randint(3001, 9999) # 
+HOST = "0.0.0.0" # "localhost" #
+PORT = 8080 # random.randint(3001, 9999) #
 MAX_PARTIAL_SIZE = 4 * 1024 * 1024 ## 4 MB
-home_path = "C:/Users/User/Videos" # "/sdcard"
+home_path = os.path.expanduser("~")
+home_path += "/Videos" # "/sdcard"
 
-if home_path.startswith("/"):
-    home_path = home_path[1:]
-home_path = "/drive/" + home_path
 """
 Simple HTTP Server with Partial Content Support
 New version with template
@@ -21,11 +19,11 @@ New version with template
 
 """
 def get_internal_wifi_ip():
-    
+
     ## Get internal Wi-Fi IPv4 IP by calling ipconfig
     ## Only tested on Windows
     ## This solution without SOCKet SUCKs!
-    
+
     ipconfig = subprocess.check_output(["ipconfig"]).decode("cp950")
     wifi = ipconfig.find("無線區域網路介面卡 Wi-Fi:")
     ipv4 = ipconfig.find("IPv4 位址", wifi)
